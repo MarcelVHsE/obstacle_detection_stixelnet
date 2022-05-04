@@ -3,6 +3,7 @@
 import os
 import cv2
 import numpy as np
+import matplotlib.pyplot as plt
 from keras.utils.data_utils import Sequence
 
 
@@ -46,7 +47,8 @@ class WaymoStixelDataset(Sequence):
         assert os.path.isdir(data_path)
         assert os.path.isfile(ground_truth_path)
 
-        self._data_path = os.path.join(data_path, "waymo_stixel_images")
+        #self._data_path = os.path.join(data_path, "waymo_stixel_images")
+        self._data_path = os.path.join(data_path, "")
         self._ground_truth_path = ground_truth_path
         self._batch_size = batch_size
         self._label_size = label_size
@@ -150,7 +152,7 @@ class WaymoStixelDataset(Sequence):
 
     def _generate_label_image(self, idx):
         img = cv2.imread(os.path.join(self._data_path, self._image_paths[idx]))
-
+        plt.imshow(img)
         positions = np.array(self._stixels_pos[idx], dtype=np.float32)
         height, width = img.shape[:2]
 
@@ -191,7 +193,7 @@ class WaymoStixelDataset(Sequence):
                 self._data_path, self._image_paths[idx * self._batch_size]
             )
         )
-
+        #was bringt transform
         if self._transform:
             img = self._transform(image=img)["image"]
 
@@ -200,7 +202,6 @@ class WaymoStixelDataset(Sequence):
         return visualize_stixel(img, stixel_pos)
 
     def get_target(self, idx):
-        #returns Ground Truth
         return self._generate_label_image(idx)
 
     def get_stixel_pos(self, idx):

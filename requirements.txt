@@ -5,3 +5,4 @@ pykitti
 tdqm
 numpy
 opencv-contrib-python
+visualkeras

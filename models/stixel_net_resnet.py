@@ -44,7 +44,7 @@ def build_stixel_net(input_shape=(1280, 1920, 3)):
     x = residual_module(x, 128)
     x = residual_module(x, 128)
 
-    x = layers.MaxPooling2D((2, 2), strides=(2, 2), name="block2_pool")(x)
+    x = layers.MaxPooling2D((2, 2), strides=(2, 1), name="block2_pool")(x)
 
     x = residual_module(x, 256)
     x = residual_module(x, 256)
@@ -74,7 +74,7 @@ def build_stixel_net(input_shape=(1280, 1920, 3)):
     x = layers.Conv2D(2048, (3, 1), strides=(2, 1), padding="valid")(x)
     x = layers.Activation("relu")(x)
     x = layers.MaxPooling2D((2, 1), strides=(2, 1))(x)
-    x = layers.Conv2D(2048, (1, 1), strides=(1, 1), padding="same")(x)
+    x = layers.Conv2D(2048, (1, 3), strides=(1, 1), padding="same")(x)
     x = layers.Activation("relu")(x)
     x = layers.MaxPooling2D((2, 1), strides=(2, 1))(x)
     x = layers.Conv2D(2048, (1, 1), strides=(1, 1))(x)
