@@ -216,7 +216,6 @@ import tensorflow.keras.layers as layers
 import tensorflow.keras.models as models
 from keras.layers.merge import concatenate
 
-
 def inception_module(layer_in, f1, f2_in, f2_out, f3_in, f3_out, f4_out):
     # 1x1 conv
     conv1 = layers.Conv2D(f1, (1, 1), padding='same', activation='relu')(layer_in)
@@ -242,16 +241,16 @@ def build_stixel_net(input_shape=(1280, 1920, 3)):
     img_input = keras.Input(shape=input_shape)
 
     x = layers.Conv2D(64, (7, 7), activation="relu")(img_input)
-    x = layers.MaxPooling2D((3, 3), strides=(2, 1), name="block1_pool")(x)
+    x = layers.MaxPooling2D((3, 3), strides=(2, 2), name="block1_pool")(x)
     x = layers.Conv2D(192, (3, 3), activation="relu", strides=(1, 1))(x)
-    x = layers.MaxPooling2D((3, 3), strides=(2, 1), name="block1_pool")(x)
+    x = layers.MaxPooling2D((3, 3), strides=(2, 2), name="block1_pool")(x)
 
     # add inception block 1
     x = inception_module(x, 64, 96, 128, 16, 32, 32)
     # add inception block 2
     x = inception_module(x, 128, 128, 192, 32, 96, 64)
 
-    x = layers.MaxPooling2D((3, 3), strides=(2, 1), name="block2_pool")(x)
+    x = layers.MaxPooling2D((3, 3), strides=(2, 2), name="block2_pool")(x)
 
     x = inception_module(x, 192, 96, 208, 16, 48, 64)
 
@@ -265,7 +264,7 @@ def build_stixel_net(input_shape=(1280, 1920, 3)):
 
     x = inception_module(x, 160, 112, 224, 24, 64, 64)
 
-    x = layers.MaxPooling2D((3, 3), strides=(2, 1), name="block3_pool")(x)
+    x = layers.MaxPooling2D((3, 3), strides=(2, 2), name="block3_pool")(x)
 
     x = inception_module(x, 256, 160, 320, 32, 128, 128)
 
