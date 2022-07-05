@@ -30,8 +30,8 @@ import utility
 import argparse
 
 parser = argparse.ArgumentParser()
-parser.add_argument("--batch_size", type=int, default=1)
-parser.add_argument("--num_epoch", type=int, default=11)
+parser.add_argument("--batch_size", type=int, default=8)#1
+parser.add_argument("--num_epoch", type=int, default=50)#11
 parser.add_argument("--load_checkpoint", type=str, default='')
 parsed_args = parser.parse_args()
 
@@ -60,7 +60,7 @@ def main():
     val_aug = Compose([Normalize(p=1.0)])
     train_set = WaymoStixelDataset(
         data_path=dt_config.DATA_PATH,
-        ground_truth_path=os.path.join(dt_config.DATA_PATH, "training_data.txt"),
+        ground_truth_path=os.path.join(dt_config.DATA_PATH, "waymo_train.txt"),
         batch_size=parsed_args.batch_size,
         transform=train_aug,
         customized_transform=utility.HorizontalFlip(p=0.5),
@@ -68,7 +68,7 @@ def main():
 
     val_set = WaymoStixelDataset(
         data_path=dt_config.DATA_PATH,
-        ground_truth_path=os.path.join(dt_config.DATA_PATH, "val_data.txt"),
+        ground_truth_path=os.path.join(dt_config.DATA_PATH, "waymo_val.txt"),
         transform=val_aug,
     )
 
@@ -104,7 +104,7 @@ def main():
         assert os.path.isfile(parsed_args.load_checkpoint)
         model.load_weights(parsed_args.load_checkpoint)
 
-    history = model.fit_generator(
+    history = model.fit(
         train_set,
         steps_per_epoch=len(train_set),
         validation_data=val_set,

@@ -19,6 +19,7 @@ class StixelLoss(Loss):
 
     def call(self, target, predict):
         """
+        test
         predict -> (h, w, num_bins)
         target -> (h, w, 2) e.g. shape: (1, 240, 2)
         h(1): is the dimension in this case for the stixel_pos, could be 2 for e.g. stixel_dist

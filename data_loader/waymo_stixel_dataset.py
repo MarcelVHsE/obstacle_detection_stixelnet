@@ -32,7 +32,7 @@ class WaymoStixelDataset(Sequence):
         ground_truth_path,
         # phase="train",
         batch_size=1,
-        label_size=(240, 160),
+        label_size=(240, 160),  #label_size=(240, 320),
         shuffle=True,
         transform=None,
         random_seed=2019,
@@ -47,8 +47,8 @@ class WaymoStixelDataset(Sequence):
         assert os.path.isdir(data_path)
         assert os.path.isfile(ground_truth_path)
 
-        #self._data_path = os.path.join(data_path, "waymo_stixel_images")
-        self._data_path = os.path.join(data_path, "")
+        self._data_path = os.path.join(data_path, "waymo_stixel_images")
+        #self._data_path = os.path.join(data_path, "")
         self._ground_truth_path = ground_truth_path
         self._batch_size = batch_size
         self._label_size = label_size
@@ -186,7 +186,7 @@ class WaymoStixelDataset(Sequence):
     def on_epoch_end(self):
         if self._shuffle:
             np.random.shuffle(self._indexes)
-
+            
     def visualize_one_image(self, idx):
         img = cv2.imread(
             os.path.join(
