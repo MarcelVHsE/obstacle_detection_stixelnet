@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/obstacle_detection_stixelnet.iml" filepath="$PROJECT_DIR$/.idea/obstacle_detection_stixelnet.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/stixelNet_metric.iml" filepath="$PROJECT_DIR$/.idea/stixelNet_metric.iml" />
     </modules>
   </component>
 </project>

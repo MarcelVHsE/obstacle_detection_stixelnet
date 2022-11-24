@@ -1,49 +1,21 @@
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+# StixelNet Metric - Evaluation Specification
+The Output of this project is a single plot of TruePositives (tpr) against the relative False Positives (fpr), iterated
+over an increasing tolerance.
 
-# Obstacle Detection With StixelNet #
-The repository is a fork of the original project by xmba15 and provides an adapted workaround for a training with data
-from the Waymo Open Dataset. A training/val and testing set can be provided on demand.
+## Definitions
+__True Positive Rate (tpr)__: A result is tp if a target (ground truth) exists AND the prediction hits the target within
+the tolerance.  
+_The rate depends on the total amount of existing target data_  
 
-## Dependencies ##
-- tested on the following environment:
-  + OS: tested on Ubuntu 20.04
-  + Tensorflow 2.6.0
-  + python 3.8
-- installing the dependencies:
-  + python3 -m pip install -r requirements.txt
+__False Positive Rate (fpr)__: A result is a fp if a prediction is made but no target exists OR a prediction don't hit 
+the target within the tolerance.  
+_The rate is calculated over the amount of evaluated datasets e.g. every image with a width of 1920 x 400 test data_
 
-## Training Data  ##
-### Waymo Raw Dataset ###
+## Iteration
+Basically one point of the ROC curve is defined as __( fpr | tpr )__ with tolerance __t__. The curve is now increasing
+the tolerance of when a prediction counts as match e.g. a Stixel is predicted at pixel: _800px_, target is _816px_ and the
+tolerance is _8px_ in the second tolerance step: it counts as __fp__. In the third iteration __t__ _= 16px_ and it counts as
+__tp__.
 
-### Ground Truth
-- Sample of automatically generated ground truth from LiDAR pointclouds
-- [Scalability in Perception for Autonomous Driving: Waymo Open Dataset](https://arxiv.org/pdf/1912.04838)
-![Sample](./docs/images/sample_ground_truth.jpg)
-
-## Adapted StixelNet Model ##
-![Model](./docs/images/network_waymo.png)
-
-## Training ##
-After downloading the dataset, run
-```bash
-    python3 ./train.py
-```
-model weights will be saved into ./saved_models directory
-
-## Test one image ##
-- Download pretrained model weights with
-```bash
-    t.b.d.
-```
-
-- Test on an image
-```bash
-  python3 ./test_single_image.py --model_path [path/to/model/weights]
-```
-
-## Sample Result ##
-![Sample Result](./docs/images/sample_result.png)
-
-## References ##
-- [StixelNet: A Deep Convolutional Network for Obstacle Detection and Road Segmentation](http://www.bmva.org/bmvc/2015/papers/paper109/paper109.pdf)
-- [Real-time category-based and general obstacle detection for autonomous driving](http://openaccess.thecvf.com/content_ICCV_2017_workshops/papers/w3/Garnett_Real-Time_Category-Based_and_ICCV_2017_paper.pdf)
+## Example 
+![Sample](./docs/sample_plot.png)

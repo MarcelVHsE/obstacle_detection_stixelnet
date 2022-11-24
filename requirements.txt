@@ -1,8 +1,5 @@
-tensorflow-gpu
-albumentations
-matplotlib
-pykitti
-tdqm
+opencv-python
 numpy
-opencv-contrib-python
-visualkeras
+scikit-learn
+matplotlib
+PyYAML

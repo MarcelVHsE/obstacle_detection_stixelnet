@@ -1,0 +1,14 @@
+images: img_i
+predictions: pred_i
+targets: targ_i
+names:
+  target: target_
+  image: image_
+  prediction: predict_
+endings:
+  target: .txt
+  image: .png
+  prediction: .txt
+label_size:
+  x: 240
+  y: 160

@@ -1,3 +1,0 @@
-# Depth could be 0-160 bins and from 6 m to 30 m which results in 24 m in total and a resolution of 15 cm
-dataset_small_val/000000000042-segment-12657584952502228282_3940_000_3960_000_with_camera_labels-20.png 0 944
-dataset_small_val/000000000042-segment-12657584952502228282_3940_000_3960_000_with_camera_labels-20.png 8 1024
