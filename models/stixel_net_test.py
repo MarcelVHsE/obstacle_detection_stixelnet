@@ -3,7 +3,7 @@
 import tensorflow.keras as keras
 import tensorflow.keras.layers as layers
 import tensorflow.keras.models as models
-import visualkeras
+#import visualkeras
 
 
 def stixel_net(input_shape=(1280, 1920, 3), visualize=False):

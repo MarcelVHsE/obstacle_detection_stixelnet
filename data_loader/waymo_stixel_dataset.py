@@ -4,8 +4,7 @@ import os
 import cv2
 import numpy as np
 import matplotlib.pyplot as plt
-from keras.utils.data_utils import Sequence
-
+from tensorflow.keras.utils import Sequence
 
 def visualize_stixel(
         image,
@@ -33,7 +32,7 @@ class WaymoStixelDataset(Sequence):
         # phase="train",
         batch_size=1,
         label_size=(240, 160),  #label_size=(240, 320),
-        shuffle=True,
+        shuffle=False,
         transform=None,
         random_seed=2019,
         input_shape=(1280, 1920),
@@ -152,7 +151,7 @@ class WaymoStixelDataset(Sequence):
 
     def _generate_label_image(self, idx):
         img = cv2.imread(os.path.join(self._data_path, self._image_paths[idx]))
-        plt.imshow(img)
+        #plt.imshow(img)
         positions = np.array(self._stixels_pos[idx], dtype=np.float32)
         height, width = img.shape[:2]
 
