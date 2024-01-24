@@ -86,3 +86,9 @@ GPATH
 GRTAGS
 GSYMS
 GTAGS
+
+.idea
+saved_models
+scripts
+third_party
+
