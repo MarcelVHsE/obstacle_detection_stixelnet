@@ -6,6 +6,7 @@ import numpy as np
 import cv2
 import tqdm as tqdm
 from models import build_stixel_net
+from data_loader.SteixelNet_interpreter import SteixelNetInterpreter
 from data_loader.cityscapes_test_dataloader import CityscapesDataLoader as Dataloader
 from albumentations import (
     Compose,
@@ -52,14 +53,13 @@ def main(args):
     model.load_weights(args.model_path)
 
     dataset = Dataloader(dt_config.DATA_PATH)
-
+    interpreter = SteixelNetInterpreter(dt_config.DATA_PATH)
     for sample in dataset:
-        # img, _ = val_set[idx]
-        # img = img[0]
-        result, prediction = test_single_image(model, sample)
-        cv2.imwrite("result.png", img=result)
-        # TODO: write export for Stixel predictions
-        break
+        feature, name = sample
+        result, prediction = test_single_image(model, feature)
+        pred_stixel = interpreter.get_stixel(prediction)
+        interpreter.export_stixels_to_csv(name, pred_stixel)
+        # cv2.imwrite("result.png", img=result)
 
 
 if __name__ == "__main__":
